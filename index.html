@@ -1,52 +1,535 @@
- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--============== Remixcions =================-->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/
-    remixicon.css"
-    rel="stylesheet"
-    />
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembagian Kelompok Mahasiswa 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!--================= Css ===============-->
-    <link rel="stylesheet" href="assets/css/style.css">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    <title>Portfolio Website</title>
-  </head>
-  <body>
-    <!--===============header=============-->
-    <header class="header" id="header">
-      <nav class="nav container">
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-      </nav>
-    </header>
-    <!--===============main=============-->
-    <main class="main">
-      <!--=============Hoome===============-->
-      <section class="home" id="home">
-        <div class="home__container container grid">
-          <img src="assets/img/profile.png" alt="" class="home__img">
-           
-          <div class="home__data">
-            <h1 class="home__name">Hendra Efendi_</h1>
-            <p class="home__work">error is greatest teacher.</p>
-            <dl class="home__list">
-              <dt>USIA:</dt>
-              <dd>23</dd>
-              <dt>PHONE:</dt>
-              <dd>081-818-836-509</dd>
-              <dt>EMAIL:</dt>
-              <dd>hendraefendi2024.student@unibamadura.ac.id</dd>
-              <dt>ADDRESS:</dt>
-              <dd>SUMENEP-JAWA TIMUR</dd>
-            </dl>
-          </div>
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .group-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease backwards;
+        }
+
+        .group-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .group-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .member {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .member:hover {
+            transform: translateX(5px);
+            border-left-width: 6px;
+        }
+
+        .member-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .member-info {
+            font-size: 0.9em;
+            color: #4a5568;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nim {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+
+        .class {
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .no-results {
+            text-align: center;
+            color: white;
+            font-size: 1.5em;
+            margin-top: 50px;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .groups-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Pembagian Kelompok Mahasiswa</h1>
+            <div class="subtitle">Angkatan 2025</div>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Cari nama, NIM, atau kelas...">
         </div>
-      </section>
-    </main>
-    <!--===============js=============-->
-    <script src="assets/js/main.js"></script>
-  </body>
+
+        <div class="groups-grid" id="groupsGrid"></div>
+        <div class="no-results" id="noResults">Tidak ada hasil yang ditemukan</div>
+    </div>
+
+    <script>
+        const groups = [
+            {
+                number: 1,
+                members: [
+                    { name: "AHMAD SHIROJUL FIKRI AKBAR", nim: "2502310106", class: "ICA" },
+                    { name: "HAIRIL ABRORI", nim: "2502310029", class: "ICB" },
+                    { name: "RAGHIB AUZA ROBBY", nim: "2502310064", class: "ICC" },
+                    { name: "Balqis Maghfirah Ramadhani", nim: "2502310097", class: "ICD" }
+                ]
+            },
+            {
+                number: 2,
+                members: [
+                    { name: "Abdur Rahman", nim: "2502320128", class: "ICE" },
+                    { name: "AINUL YAKIN", nim: "2502310105", class: "ICA" },
+                    { name: "AUDY JEANY SALVA KEMA", nim: "2502310142", class: "ICB" },
+                    { name: "DZIKRI KHALIL MUSTHAFID", nim: "2502310077", class: "ICC" }
+                ]
+            },
+            {
+                number: 3,
+                members: [
+                    { name: "Azwan Hafidz Ferdiansyah", nim: "2502310103", class: "ICD" },
+                    { name: "Irfan Adi Maulana", nim: "2502320127", class: "ICE" },
+                    { name: "AILATUR ROFITA", nim: "2502310113", class: "ICA" },
+                    { name: "CINDY AMELYA ARDINA PUTRI", nim: "2502310037", class: "ICB" }
+                ]
+            },
+            {
+                number: 4,
+                members: [
+                    { name: "KHAIRUL FAIZIN", nim: "2502310056", class: "ICC" },
+                    { name: "Moh. Norhalim", nim: "2502310091", class: "ICD" },
+                    { name: "Mohammad Nabiel", nim: "2502310116", class: "ICE" },
+                    { name: "MOHAMMAD HOIRUL HIDAYATULLAH", nim: "2502310112", class: "ICA" }
+                ]
+            },
+            {
+                number: 5,
+                members: [
+                    { name: "RINO ALIF FIYYANSYAH", nim: "2502310038", class: "ICB" },
+                    { name: "ILHAM WAHIDI", nim: "2502310078", class: "ICC" },
+                    { name: "Lutvan Muzammil", nim: "2502310085", class: "ICD" },
+                    { name: "Afirah El Abidah", nim: "2502310111", class: "ICE" }
+                ]
+            },
+            {
+                number: 6,
+                members: [
+                    { name: "FAHMI FAHRISI", nim: "2502310117", class: "ICA" },
+                    { name: "AHCMED RAFLI JULIAN SYAHPUTRA", nim: "2502310050", class: "ICB" },
+                    { name: "RISKI FIRMANSYAH", nim: "2502310074", class: "ICC" },
+                    { name: "M.Nurulloh", nim: "2502310088", class: "ICD" }
+                ]
+            },
+            {
+                number: 7,
+                members: [
+                    { name: "Rizqi Maulidhan", nim: "2502310110", class: "ICE" },
+                    { name: "HILYA ANISSHAILA HAQON", nim: "2502310121", class: "ICA" },
+                    { name: "ALAN ARRAHMAN", nim: "2502310045", class: "ICB" },
+                    { name: "ILHAM FADIL", nim: "2502310057", class: "ICC" }
+                ]
+            },
+            {
+                number: 8,
+                members: [
+                    { name: "Moh Fahmil Arifin", nim: "2502320136", class: "ICD" },
+                    { name: "Dianatus Sholehah", nim: "2502310112", class: "ICE" },
+                    { name: "HAFIDATUL JANNAH", nim: "2502310128", class: "ICA" },
+                    { name: "SALWA FERINA PUTRI", nim: "2502310041", class: "ICB" }
+                ]
+            },
+            {
+                number: 9,
+                members: [
+                    { name: "ADITYA BUSAIRI", nim: "2502310079", class: "ICC" },
+                    { name: "Moh kholilurrahman", nim: "2502310092", class: "ICD" },
+                    { name: "Nor Anisa", nim: "2502310140", class: "ICE" },
+                    { name: "MAULANA NUR RAHMAN", nim: "2502310124", class: "ICA" }
+                ]
+            },
+            {
+                number: 10,
+                members: [
+                    { name: "MOH ZAKI PRASETYA", nim: "2502310031", class: "ICB" },
+                    { name: "MUHAMMAD SYAIFUL JAMIL", nim: "2502310058", class: "ICC" },
+                    { name: "Riyan hidayat", nim: "2502310084", class: "ICD" },
+                    { name: "Moh agung dwi putra", nim: "2502310145", class: "ICE" }
+                ]
+            },
+            {
+                number: 11,
+                members: [
+                    { name: "WILLY PUTRI DIANA DEWI", nim: "2502310123", class: "ICA" },
+                    { name: "MOCHAMMAD FAJRIL ADHA", nim: "2502310035", class: "ICB" },
+                    { name: "MOHAMMAD FARHAN AZ ZARQONI", nim: "2502310066", class: "ICC" },
+                    { name: "Akhmad Kasyfil Warits", nim: "2502310086", class: "ICD" }
+                ]
+            },
+            {
+                number: 12,
+                members: [
+                    { name: "Syauqi firdaus", nim: "2502320126", class: "ICE" },
+                    { name: "MUTHIA RAHMA ZAFRA", nim: "2502310122", class: "ICA" },
+                    { name: "NURRISKI FIRDAUS", nim: "2502310049", class: "ICB" },
+                    { name: "SHEILA NURIAH AZALIA", nim: "2502310073", class: "ICC" }
+                ]
+            },
+            {
+                number: 13,
+                members: [
+                    { name: "Pinasti Tiara Ratu", nim: "2502310101", class: "ICD" },
+                    { name: "wildiyani shayfi", nim: "2502310117", class: "ICE" },
+                    { name: "MUHAMMAD AJIB", nim: "2502310111", class: "ICA" },
+                    { name: "ABDALLAH KAYYIS", nim: "2502310046", class: "ICB" }
+                ]
+            },
+            {
+                number: 14,
+                members: [
+                    { name: "YOYON ARDIANSAH", nim: "2502310076", class: "ICC" },
+                    { name: "Fathirah Insaniyah Kamilia", nim: "2502310094", class: "ICD" },
+                    { name: "Moh Fairuz Abadi", nim: "2502310109", class: "ICE" },
+                    { name: "DURROTUN NAFIZA", nim: "2502310126", class: "ICA" }
+                ]
+            },
+            {
+                number: 15,
+                members: [
+                    { name: "ZAINOER ROHIEM", nim: "2502310047", class: "ICB" },
+                    { name: "MOH. FAJRUL FALAH SYAMLAN", nim: "2502310065", class: "ICC" },
+                    { name: "Ahmad Ridla Hasani", nim: "2502310096", class: "ICD" },
+                    { name: "Zamry Fahrizal Hanif Syamlan", nim: "2502310137", class: "ICE" }
+                ]
+            },
+            {
+                number: 16,
+                members: [
+                    { name: "SANTOSO", nim: "2502310127", class: "ICA" },
+                    { name: "FAIRUS ZAINI MUSTOFA", nim: "2502310052", class: "ICB" },
+                    { name: "SOFYAN AINUR ROZY", nim: "2502310080", class: "ICC" },
+                    { name: "rafli hafil ashrory", nim: "2502310098", class: "ICD" }
+                ]
+            },
+            {
+                number: 17,
+                members: [
+                    { name: "Imilia", nim: "2502320125", class: "ICE" },
+                    { name: "DARUL IKSAN", nim: "2502310118", class: "ICA" },
+                    { name: "FEBIYANA SULASTRI", nim: "2502310032", class: "ICB" },
+                    { name: "WAJID", nim: "2502310062", class: "ICC" }
+                ]
+            },
+            {
+                number: 18,
+                members: [
+                    { name: "Aura Lingga Malik Asshiddiqi", nim: "2502310083", class: "ICD" },
+                    { name: "M Ajibas Sherdy", nim: "2502310144", class: "ICE" },
+                    { name: "DARMAWAN SYAH", nim: "2502310116", class: "ICA" },
+                    { name: "NUR SYAHRUL ROMADHANI", nim: "2502310042", class: "ICB" }
+                ]
+            },
+            {
+                number: 19,
+                members: [
+                    { name: "FIRSI ROBBY MOHAMMAD", nim: "2502310070", class: "ICC" },
+                    { name: "Alfi Rosa Ramadhani", nim: "2502310107", class: "ICD" },
+                    { name: "Qurrotul Aini", nim: "2502320129", class: "ICE" },
+                    { name: "SITI NURHALISA", nim: "2502310110", class: "ICA" }
+                ]
+            },
+            {
+                number: 20,
+                members: [
+                    { name: "SOHEBUL KARIM", nim: "2502310028", class: "ICB" },
+                    { name: "AHMAD IHSANDI", nim: "2502310059", class: "ICC" },
+                    { name: "Ainur Rohim", nim: "2502310105", class: "ICD" },
+                    { name: "windasari", nim: "2502310139", class: "ICE" },
+                    { name: "AHMAD GALI", nim: "2502310102", class: "ICA" }
+                ]
+            },
+            {
+                number: 21,
+                members: [
+                    { name: "MOH IFAN FIRMANSYAH", nim: "2502310036", class: "ICB" },
+                    { name: "RAISYA SALSABILA", nim: "2502310067", class: "ICC" },
+                    { name: "Shofiatul Musyarrofah", nim: "2502310090", class: "ICD" },
+                    { name: "Fatimatus Syafa Kamila", nim: "2502310114", class: "ICE" }
+                ]
+            },
+            {
+                number: 22,
+                members: [
+                    { name: "KHALIFA MAULIDINA SHALEHA", nim: "2502310101", class: "ICA" },
+                    { name: "ANNA NOR AINI", nim: "2502310043", class: "ICB" },
+                    { name: "SYAH WARDHANA SUHADA PUTRA", nim: "2502310061", class: "ICC" },
+                    { name: "Arief Kurniadi", nim: "2502310104", class: "ICD" }
+                ]
+            },
+            {
+                number: 23,
+                members: [
+                    { name: "Fery Kurniawan", nim: "2502310119", class: "ICE" },
+                    { name: "M. NOVEL ABDILLAH", nim: "2502310103", class: "ICA" },
+                    { name: "MOH. MU'ALLIFI", nim: "2502310053", class: "ICB" },
+                    { name: "M. FAIZAL RIZQI", nim: "2502310055", class: "ICC" }
+                ]
+            },
+            {
+                number: 24,
+                members: [
+                    { name: "Bakri Al. Bukhari", nim: "2502310087", class: "ICD" },
+                    { name: "nabil qodri pasya r", nim: "2502320124", class: "ICE" },
+                    { name: "IMAM SYARIF AL QODRI", nim: "2502310108", class: "ICA" },
+                    { name: "AKMAL MAKHRUS FIRMANDANI", nim: "2502310054", class: "ICB" }
+                ]
+            },
+            {
+                number: 25,
+                members: [
+                    { name: "JIBRILIYANI MAGHRIBI", nim: "2502310060", class: "ICC" },
+                    { name: "Aditya Sukma Anwariansyah", nim: "2502310100", class: "ICD" },
+                    { name: "MOH. ALIF FEBRIANSYAH", nim: "2502310104", class: "ICA" },
+                    { name: "M. TAMAMIL HIDAYAT", nim: "2502310033", class: "ICB" },
+                    { name: "MOH. ZAUKI", nim: "2502310071", class: "ICC" }
+                ]
+            },
+            {
+                number: 26,
+                members: [
+                    { name: "Edwan Zainur Amin", nim: "2502310102", class: "ICD" },
+                    { name: "MOH. HAMDANI", nim: "2502310119", class: "ICA" },
+                    { name: "AHMAD DZAKIUDIN", nim: "2502310030", class: "ICB" },
+                    { name: "PRITA LAURA", nim: "2502310143", class: "ICC" }
+                ]
+            },
+            {
+                number: 27,
+                members: [
+                    { name: "Ropiatul aini", nim: "2502310108", class: "ICD" },
+                    { name: "AGUSTIN NURFAJRIYAH", nim: "2502310107", class: "ICA" },
+                    { name: "FERDY ANSYAH PUTRA", nim: "2502310051", class: "ICB" },
+                    { name: "AHMAD FAWAID MUSTAQIM", nim: "2502310069", class: "ICC" }
+                ]
+            },
+            {
+                number: 28,
+                members: [
+                    { name: "Moh ubaitullah", nim: "2502310095", class: "ICD" },
+                    { name: "BENY KURNIAWAN", nim: "2502310109", class: "ICA" },
+                    { name: "AKMAL ZIDQI EL FARIDI", nim: "2502310089", class: "ICD" },
+                    { name: "SITI NUR BAYYINATUL FAJRIYAH", nim: "2502310115", class: "ICA" }
+                ]
+            },
+            {
+                number: 29,
+                members: [
+                    { name: "Aisatul Iqomah", nim: "2502310106", class: "ICD" },
+                    { name: "M. SYAFRIADI ZAKI ATHIF", nim: "2502310114", class: "ICA" },
+                    { name: "R. Dharma waringin al ikhsan", nim: "2502310082", class: "ICD" },
+                    { name: "AHMAD ARIFATE", nim: "2502310120", class: "ICA" }
+                ]
+            }
+        ];
+
+        function renderGroups(filteredGroups) {
+            const grid = document.getElementById('groupsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            grid.innerHTML = '';
+            
+            if (filteredGroups.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+            
+            filteredGroups.forEach((group, index) => {
+                const card = document.createElement('div');
+                card.className = 'group-card';
+                card.style.animationDelay = `${index * 0.05}s`;
+                
+                let membersHTML = group.members.map(member => `
+                    <div class="member">
+                        <div class="member-name">${member.name}</div>
+                        <div class="member-info">
+                            <span class="nim">${member.nim}</span>
+                            <span class="class">${member.class}</span>
+                        </div>
+                    </div>
+                `).join('');
+                
+                card.innerHTML = `
+                    <div class="group-header">Kelompok ${group.number}</div>
+                    ${membersHTML}
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm === '') {
+                renderGroups(groups);
+                return;
+            }
+            
+            const filtered = groups.filter(group => {
+                return group.members.some(member => 
+                    member.name.toLowerCase().includes(searchTerm) ||
+                    member.nim.includes(searchTerm) ||
+                    member.class.toLowerCase().includes(searchTerm)
+                );
+            });
+            
+            renderGroups(filtered);
+        });
+
+        renderGroups(groups);
+    </script>
+</body>
 </html>
