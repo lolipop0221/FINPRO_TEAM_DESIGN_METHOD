@@ -1,3 +1,1 @@
-Nama : radit
-nama : yahudi
-nama : porak
+Nama : radit, yahudi porak
